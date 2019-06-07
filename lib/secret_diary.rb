@@ -1,6 +1,4 @@
 class SecretDiary
-  attr_writer :lock
-  attr_accessor :entries
 
   def initialize
     @lock = :closed

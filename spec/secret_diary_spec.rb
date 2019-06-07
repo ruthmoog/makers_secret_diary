@@ -4,7 +4,7 @@ describe SecretDiary do
 
 ENTRY = "Dear diary..."
 
-  context 'is locked' do
+  context 'when locked' do
     it 'will raise and error if you try to add an entry' do
       expect { subject.add_entry(ENTRY) }.to raise_error("error! diary is locked")
     end
@@ -18,22 +18,16 @@ ENTRY = "Dear diary..."
     end
   end
 
-  context 'is unlocked' do
+  context 'when unlocked' do
     let(:unlock) { subject.unlock }
 
-    it 'is locked when the user calls `lock`' do
+    it 'is re-locked when the user calls `lock`' do
       unlock
 
       expect(subject.lock).to eq(:closed)
     end
 
-    it 'returns entries if user adds entry' do
-      unlock
-
-      expect{subject.add_entry(ENTRY)}.to change{subject.entries.count}.from(0).to(1)
-    end
-
-    it 'returns entries if user gets entry' do
+    it 'can save entries and retrieve entries' do
       unlock
       subject.add_entry(ENTRY)
 
