@@ -1,31 +1,29 @@
 class SecretDiary
 
   def initialize
-    @lock = :closed
     @entries = []
+    @lock = Lock.new
   end
 
   def unlock
-    @lock = :open
+    @lock.unlock
   end
 
   def lock
-    @lock = :closed
+    @lock.lock
   end
 
   def add_entry(entry)
-    if @lock == :open
+    if !@lock.locked?
       @entries << entry
-    end
-
-    if @lock == :closed
+    else
       raise_locked
     end
   end
 
   def get_entries
-    if @lock == :open
-      return @entries
+    if !@lock.locked?
+      @entries
     else
       raise_locked
     end

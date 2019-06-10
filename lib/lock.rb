@@ -1,6 +1,6 @@
 class Lock
 
-  def initialize(lock = :locked)
+  def initialize(lock = :closed)
     @lock = lock
   end
 
@@ -9,11 +9,11 @@ class Lock
   end
 
   def lock
-    @lock = :locked
+    @lock = :closed
   end
 
   def locked?
-    @lock == :locked
+    @lock == :closed
   end
 
 end

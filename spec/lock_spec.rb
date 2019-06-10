@@ -25,7 +25,7 @@ RSpec.describe Lock do
     end
 
     it 'is locked when the user calls `lock`' do
-      expect(subject.lock).to eq(:locked)
+      expect(subject.lock).to eq(:closed)
     end
 
   end
