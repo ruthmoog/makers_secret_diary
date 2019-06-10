@@ -5,10 +5,6 @@ class SecretDiary
     @entries = []
   end
 
-  def raise_locked
-    raise "error! diary is locked"
-  end
-
   def unlock
     @lock = :open
   end
@@ -33,6 +29,12 @@ class SecretDiary
     else
       raise_locked
     end
+  end
+
+  private
+
+  def raise_locked
+    raise "error! diary is locked"
   end
 
 end
