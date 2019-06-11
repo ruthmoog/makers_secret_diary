@@ -4,9 +4,15 @@ describe SecretDiary do
 
 ENTRY = "Dear diary..."
 
-subject(:diary) { described_class.new(Lock.new) }
+let(:lock) { double :lock }
+subject(:diary) { described_class.new(lock) }
 
   context 'when locked' do
+
+    before(:each) do
+      allow(lock).to receive(:locked?).and_return(true)
+    end
+
     it 'will raise and error if you try to add an entry' do
       expect { diary.add_entry(ENTRY) }.to raise_error("error! diary is locked")
     end
@@ -16,21 +22,29 @@ subject(:diary) { described_class.new(Lock.new) }
     end
 
     it 'is unlocked when user calls `unlock`' do
-      expect(diary.unlock).to eq(:open)
+      allow(lock).to receive(:unlock)
+
+      diary.unlock
+
+      expect(lock).to have_received(:unlock)
     end
   end
 
   context 'when unlocked' do
-    let(:unlock) { diary.unlock }
+
+    before(:each) do
+      allow(lock).to receive(:locked?).and_return(false)
+    end
 
     it 'is re-locked when the user calls `lock`' do
-      unlock
+      allow(lock).to receive(:lock)
 
-      expect(diary.lock).to eq(:closed)
+      diary.lock
+
+      expect(lock).to have_received(:lock)
     end
 
     it 'can save entries and retrieve entries' do
-      unlock
       diary.add_entry(ENTRY)
 
       expect(diary.get_entries).to eq([ENTRY])
