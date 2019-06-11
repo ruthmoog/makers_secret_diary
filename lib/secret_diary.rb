@@ -1,8 +1,8 @@
 class SecretDiary
 
-  def initialize
+  def initialize(lock)
     @entries = []
-    @lock = Lock.new
+    @lock = lock
   end
 
   def unlock
