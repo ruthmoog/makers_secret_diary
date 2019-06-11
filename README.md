@@ -20,7 +20,9 @@ When the user calls `lock` again they throw errors again.
 
 I've used RSpec & TDD to create the files.
 
-I plan to explore cohesion and encapsulation to seperate the code into two classes instead of one.
+I considered cohesion and encapsulation and seperated the code into two classes.
+
+So that the tests would be uncoupled, I used doubles and spies to test the diary behavior without relying on the `Lock` class.
 
 ## Run the tests
 
